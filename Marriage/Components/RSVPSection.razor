@@ -1,0 +1,120 @@
+﻿<style>
+    .rsvp-section {
+        background-color: var(--primary-color);
+        padding: 80px 0;
+        text-align: center;
+    }
+
+    .rsvp-form {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: var(--shadow);
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+        text-align: left;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1rem;
+    }
+
+    .success-message {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #d4edda;
+        color: #155724;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .success-message i {
+        font-size: 1.5rem;
+    }
+
+    .validation-message {
+        color: #dc3545;
+        font-size: 0.875rem;
+        margin-top: 5px;
+    }
+</style>
+
+<div class="rsvp-section">
+    <div class="container">
+        <h2 class="section-title" style="color: var(--text-light);">Подтвердите присутствие</h2>
+        <p style="color: var(--text-light); margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">
+            Пожалуйста, подтвердите ваше присутствие до 10 февраля 2026 года, чтобы мы могли лучше спланировать мероприятие.
+        </p>
+
+        <div class="rsvp-form">
+            <EditForm Model="@rsvpModel" OnValidSubmit="HandleSubmit">
+                <DataAnnotationsValidator />
+
+                <div class="form-group">
+                    <label for="name">Ваше имя *</label>
+                    <InputText id="name" @bind-Value="rsvpModel.Name" class="form-control" />
+                    <ValidationMessage For="@(() => rsvpModel.Name)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email для связи</label>
+                    <InputText id="email" @bind-Value="rsvpModel.Email" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label for="guests">Количество гостей *</label>
+                    <InputSelect id="guests" @bind-Value="rsvpModel.GuestsCount" class="form-control">
+                        <option value="1">1</option>
+                        <option value="2" selected>2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5+</option>
+                    </InputSelect>
+                    <ValidationMessage For="@(() => rsvpModel.GuestsCount)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Пожелания или комментарии</label>
+                    <InputTextArea id="message" @bind-Value="rsvpModel.Message"
+                                   class="form-control" rows="4" />
+                </div>
+
+                <button type="submit" class="btn" disabled="@isSubmitting">
+                    @if (isSubmitting)
+                    {
+                        <span>Отправка...</span>
+                    }
+                    else
+                    {
+                        <span>Подтвердить присутствие</span>
+                    }
+                </button>
+
+                @if (showSuccessMessage)
+                {
+                    <div class="success-message">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Спасибо, @rsvpModel.Name! Ваше присутствие подтверждено для @rsvpModel.GuestsCount гостей.</span>
+                    </div>
+                }
+            </EditForm>
+        </div>
+    </div>
+</div>
