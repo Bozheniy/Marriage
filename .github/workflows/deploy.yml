@@ -28,11 +28,18 @@ jobs:
     - name: Build and publish
       run: |
         dotnet publish -c Release -o dist \
-        -p:GHPages=true \
-         -p:BaseHref="/Marriage/" \
+          -p:GHPages=true \
+          -p:BaseHref="/Marriage/" \
+          -p:BlazorWebAssemblyLoadAllGlobalizationData=true
     
     - name: Create 404.html for SPA routing
       run: cp dist/wwwroot/index.html dist/wwwroot/404.html
+      
+    - name: Fix base path in 404.html
+      run: |
+        sed -i 's|<base href="/Marriage/" />|<base href="/Marriage/" />|g' dist/wwwroot/404.html
+        sed -i 's|href="css/|href="/Marriage/css/|g' dist/wwwroot/404.html
+        sed -i 's|src="_framework/|src="/Marriage/_framework/|g' dist/wwwroot/404.html
     
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
