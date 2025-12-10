@@ -1,4 +1,4 @@
-name: Deploy Blazor to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -13,6 +13,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    
     steps:
     - uses: actions/checkout@v4
     
@@ -24,25 +25,19 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
     
-    - name: Publish with correct base href
+    - name: Build and publish
       run: |
-        dotnet publish -c Release \
-        -o published \
-        --nologo \
-        -p:UseAppHost=false \
-        -p:GenerateDocumentationFile=false \
-        -p:BlazorEnableCompression=false
-        
-        # Копируем index.html как 404.html для SPA маршрутизации
-        cp published/wwwroot/index.html published/wwwroot/404.html
-        
-        # Создаем .nojekyll файл чтобы GitHub не обрабатывал наши файлы
-        touch published/wwwroot/.nojekyll
+        dotnet publish -c Release -o dist \
+        -p:GHPages=true \
+        -p:BaseHref="/MyBlazorApp/"
+    
+    - name: Create 404.html for SPA routing
+      run: cp dist/wwwroot/index.html dist/wwwroot/404.html
     
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
-        path: published/wwwroot
+        path: dist/wwwroot
 
   deploy:
     environment:
