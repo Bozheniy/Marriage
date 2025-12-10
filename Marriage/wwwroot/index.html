@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Marriage</title>
     <base href="/Marriage/" />
-    <link rel="stylesheet" href="~/css/app.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <!-- Используйте относительные пути -->
+    <link rel="stylesheet" href="css/app.css" asp-append-version="true" />
+    <link rel="stylesheet" href="css/site.css" asp-append-version="true" />
 </head>
 <body>
     <div id="app">
@@ -22,7 +23,7 @@
         <a href="" class="reload">Reload</a>
         <a class="dismiss">🗙</a>
     </div>
-    <!-- Используйте абсолютный путь -->
-    <script src="/Marriage/_framework/blazor.webassembly.js"></script>
+    <!-- Используйте относительный путь -->
+    <script src="_framework/blazor.webassembly.js"></script>
 </body>
 </html>
