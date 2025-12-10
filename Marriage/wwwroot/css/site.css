@@ -90,11 +90,11 @@ h1, h2, h3, h4 {
     margin-top: 20px;
 }
 
-    .btn:hover {
-        background-color: var(--secondary-color);
-        transform: translateY(-3px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    }
+.btn:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
 
 .heart {
     color: #ff6b6b;
