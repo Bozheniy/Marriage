@@ -6,12 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Marriage</title>
     <base href="/Marriage/" />
-    <link rel="stylesheet" href="css/app.css" />
-    <link rel="stylesheet" href="css/site.css" />
-
-    <link href="/Marriage/" />
+    <!-- Добавьте префикс ~/ для путей -->
+    <link rel="stylesheet" href="~/css/app.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
 </head>
-
 <body>
     <div id="app">
         <svg class="loading-progress">
@@ -26,7 +24,7 @@
         <a href="" class="reload">Reload</a>
         <a class="dismiss">🗙</a>
     </div>
-    <script src="_framework/blazor.webassembly.js"></script>
+    <!-- Используйте абсолютный путь -->
+    <script src="/Marriage/_framework/blazor.webassembly.js"></script>
 </body>
-
 </html>
